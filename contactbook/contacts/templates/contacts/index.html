@@ -1,0 +1,48 @@
+{% extends 'contacts/base.html' %}
+
+{% block content %}
+<div style="font-family: 'Inter', sans-serif; max-width: 900px; margin: auto; padding: 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1f2937;">My Contacts</h2>
+        <a href="/add/" style="background-color: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            + New Contact
+        </a>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid #e5e7eb;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background-color: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                <tr>
+                    <th style="padding: 16px; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 0.75rem;">Contact Details</th>
+                    <th style="padding: 16px; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 0.75rem;">Phone</th>
+                    <th style="padding: 16px; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr style="border-bottom: 1px solid #f3f4f6; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f9fafb'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 16px;">
+                        <div style="font-weight: 600; color: #111827;">{{ contact.name }}</div>
+                        <div style="font-size: 0.875rem; color: #6b7280;">{{ contact.email }}</div>
+                    </td>
+                    <td style="padding: 16px; color: #4b5563; font-size: 0.9rem;">
+                        {{ contact.phone }}
+                    </td>
+                    <td style="padding: 16px; text-align: right;">
+                        <a href="/edit/{{ contact.id }}/" style="color: #4f46e5; text-decoration: none; font-weight: 500; margin-right: 15px;">Edit</a>
+                        <a href="/delete/{{ contact.id }}/" style="color: #ef4444; text-decoration: none; font-weight: 500;" onclick="return confirm('Delete contact?')">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="padding: 40px; text-align: center; color: #9ca3af;">
+                        No contacts found. Start by adding one!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
